@@ -33,13 +33,15 @@
   };
   //Functon to remove order from deployd
   RemoteDataStore.prototype.remove = function(key) {
-      this.get(key, function(serverResponse) {
-        var serverUrl = this.serverUrl;
-      console.log(serverResponse);
-      var id = serverResponse[0]["id"];
-      $.ajax(serverUrl + "/" + id, {
-        type: "DELETE"
-      });
+    var serverUrl = this.serverUrl;
+    this.get(key, function(serverResponse) {
+      if (serverResponse.length != 0) {
+        console.log(serverResponse);
+        var id = serverResponse[0]["id"];
+        $.ajax(serverUrl + "/" + id, {
+          type: "DELETE"
+        });
+      }
     });
   };
   App.RemoteDataStore = RemoteDataStore;
